@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "remcon",
+    "password": "remcon",
+    "database": "remocon",
+    "host": "0.0.0.0",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "remcon",
+    "password": "remcon",
+    "database": "remocon",
+    "host": "0.0.0.0",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "remcon",
+    "password": "remcon",
+    "database": "remocon",
+    "host": "0.0.0.0",
+    "dialect": "mysql"
+  }
+}

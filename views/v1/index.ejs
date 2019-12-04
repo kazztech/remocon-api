@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v1 DOC</title>
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        h2 {
+            background-color: #464953;
+            color: white;
+            padding: 5px 8px;
+        }
+        
+        h3 {
+            border-left: 12px solid #888;
+            padding-left: 8px;
+        }
+        
+        .wrap {
+            padding: 10px 25px;
+        }
+        
+        .doc-section {
+            margin: 35px 0 15px 0;
+        }
+    </style>
+    <div class="wrap">
+        <h1>v1 API DOC</h1>
+
+        <div class="doc-section">
+            <h2>table of contents</h2>
+            <ul>
+                <li>共通</li>
+                <ul>
+                    <li>
+                        <a href="#doc-common-wrap">
+                            レスポンスラッパー
+                        </a>
+                    </li>
+                </ul>
+                <li>レイアウト</li>
+                <ul>
+                    <li>
+                        <a href="#doc-get-layout-data">
+                            レイアウトデータ一括取得
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            レイアウトデータ一括取得(赤外線パターン含む)
+                        </a>
+                    </li>
+                </ul>
+                <li>リモコン</li>
+                <ul>
+                    <li>
+                        <a href="">
+                            リモコン取得
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            リモコン作成
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            リモコン更新
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            リモコン削除
+                        </a>
+                    </li>
+                </ul>
+                <li>ウィジェット</li>
+                <ul>
+                    <li>
+                        <a href="">
+                            ウィジェット取得
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            ウィジェット作成
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            ウィジェット更新
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            ウィジェット削除
+                        </a>
+                    </li>
+                </ul>
+                <li>赤外線</li>
+                <ul>
+                    <li>
+                        <a href="">
+                            赤外線更新
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            赤外線送信
+                        </a>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+
+        <div id="doc-common-wrap" class="doc-section">
+            <h2>共通</h2>
+            <div>
+                <h3>認証</h3>
+                <div>
+                    なし
+                </div>
+            </div>
+            <div>
+                <h3>レスポンスラッパー</h3>
+                <pre><code>{
+    "error": false,
+    "error_message": "",
+    "content": ...
+}</code></pre>
+            </div>
+        </div>
+
+        <div id="doc-get-layout-data" class="doc-section">
+            <h2>レイアウトデータ一括取得</h2>
+            <div>
+                すべてのリモコンとそれに紐づくウィジェットの整形されたデータを返します。
+            </div>
+            <div>
+                <h3>エンドポイントURL</h3>
+                <div>GET:/api/v1/remocons</div>
+            </div>
+            <div>
+                <h3>リクエスト</h3>
+                <div>なし</div>
+            </div>
+            <div>
+                <h3>レスポンス</h3>
+                <details>
+                    <summary>例 <span style="color: #888">(表示/非表示)</span></summary>
+                    <pre><code>{
+    "remocons": [
+        {
+            id: 1,
+            name: "テレビ",
+            priority: 3,
+            widgets: [
+                {
+                    id: 1,
+                    label: {
+                        text: "電源",
+                        color: "#FFFFFF"
+                    },
+                    icon: {
+                        style: "round",
+                        color: "#FF0000"
+                    },
+                    position: {
+                        x: 1,
+                        y: 1
+                    }
+                },
+                {
+                    id: 2,
+                    label: {
+                        text: "VOL+",
+                        color: "#FFFFFF"
+                    },
+                    icon: {
+                        style: "rect",
+                        color: "#000000"
+                    },
+                    position: {
+                        x: 1,
+                        y: 2
+                    }
+                }
+            ]
+        },
+        {
+            id: 2,
+            name: "照明",
+            priority: 3,
+            widgets: [ ]
+        }
+    ]
+}</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <div id="doc-get-layout-data-all" class="doc-section">
+            <h2>レイアウトデータ一括取得(赤外線パターン含む)</h2>
+            <div>
+                <a href="#doc-get-layout-data">レイアウトデータ一括取得</a>に加えて赤外線のパターンを含んだデータを返します。データサイズが大きくなる場合があります。
+            </div>
+            <div>
+                <h3>エンドポイントURL</h3>
+                <div>GET:/api/v1/remocons-all</div>
+            </div>
+            <div>
+                <h3>リクエスト</h3>
+                <div>なし</div>
+            </div>
+            <div>
+                <h3>レスポンス</h3>
+                <details>
+                    <summary>例 <span style="color: #888">(表示/非表示)</span></summary>
+                    <pre><code>{
+    "remocons": [
+        {
+            id: 1,
+            name: "テレビ",
+            priority: 3,
+            widgets: [
+                {
+                    id: 1,
+                    irPattern: [...],
+                    label: {
+                        text: "電源",
+                        color: "#FFFFFF"
+                    },
+                    icon: {
+                        style: "round",
+                        color: "#FF0000"
+                    },
+                    position: {
+                        x: 1,
+                        y: 1
+                    }
+                },
+                {
+                    id: 2,
+                    irPattern: [...],
+                    label: {
+                        text: "VOL+",
+                        color: "#FFFFFF"
+                    },
+                    icon: {
+                        style: "rect",
+                        color: "#000000"
+                    },
+                    position: {
+                        x: 1,
+                        y: 2
+                    }
+                }
+            ]
+        },
+        {
+            id: 2,
+            name: "照明",
+            priority: 3,
+            widgets: [ ]
+        }
+    ]
+}</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <div id="" class="doc-section">
+            <h2>レ</h2>
+            <div>
+
+            </div>
+            <div>
+                <h3>エンドポイントURL</h3>
+                <div>GET:/api/v1/remocons-all</div>
+            </div>
+            <div>
+                <h3>リクエスト</h3>
+                <div>なし</div>
+            </div>
+            <div>
+                <h3>レスポンス</h3>
+                <details>
+                    <summary>例 <span style="color: #888">(表示/非表示)</span></summary>
+                    <pre><code></code></pre>
+                </details>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
