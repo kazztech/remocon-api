@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     widget.associate = function(models) {
         // associations can be defined here
         widget.belongsTo(models.remocon);
+        widget.hasMany(models.batches_widgets, { foreignKey: "widget_id" });
     };
     return widget;
 };
