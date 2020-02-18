@@ -102,7 +102,7 @@ const readBatchHandler = (req, res) => {
 
 //
 const createBatchValidate = [
-    check("name").isString().isLength({ min: 1, max: 6 }),
+    check("name").isString().isLength({ min: 1, max: 12 }),
     check("priority").isInt().isIn([1, 2, 3, 4, 5])
 ];
 const createBatchHandler = (req, res) => {

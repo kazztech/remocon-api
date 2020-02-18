@@ -185,6 +185,51 @@ const deleteRemoconHandler = (req, res) => {
     });
 };
 
+//
+const downloadRemoconValidate = [];
+const downloadRemoconHandler = (req, res) => {
+    if (!validationResult(req).isEmpty()) {
+        return res.json(responsePropsFormat(
+            ERROR.VALIDATE.CODE,
+            ERROR.VALIDATE.MESSAGE,
+            null
+        ));
+    }
+
+    const remoconData = req.body;
+    db.sequelize.transaction(async t => {
+
+        const insertedRemocon = await db.remocon.create({
+            name: remoconData.name,
+            priority: remoconData.priority
+        }, { transaction: t });
+
+        const newWidgets = [];
+        for (let widget of remoconData.widgets) {
+            newWidgets.push({
+                remocon_id: insertedRemocon.id,
+                label_text: widget.label.text,
+                label_color: widget.label.color,
+                icon_style: widget.icon.style,
+                icon_color: widget.icon.color,
+                pos_x: widget.position.x,
+                pos_y: widget.position.y,
+                ir_pattern: widget.irPattern.join(",")
+            });
+        }
+
+        await db.widget.bulkCreate(newWidgets, { transaction: t });
+
+        return res.json(responsePropsFormat(
+            ERROR.SUCCESS.CODE,
+            ERROR.SUCCESS.MESSAGE, { id: insertedRemocon.id }
+        ));
+
+    }).catch(() => {
+        return res.json(responsePropsFormat(ERROR.DB.CODE, ERROR.DB.MESSAGE, null));
+    });
+}
+
 // ===============================
 // =========== Routes ============
 // ===============================
@@ -201,6 +246,7 @@ router.post("/", createRemoconValidate, createRemoconHandler);
 router.put("/:remoconId(\\d+)", updateRemoconValidate, updateRemoconHandler);
 // リモコン削除
 router.delete("/:remoconId(\\d+)", deleteRemoconHandler);
+router.post("/download", downloadRemoconValidate, downloadRemoconHandler);
 
 
 module.exports = router;
